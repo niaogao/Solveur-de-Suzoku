@@ -14,16 +14,21 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.*;
 
+import javax.print.attribute.ResolutionSyntax;
 import java.awt.*;
 import java.util.Timer;
 
 public class Render extends Application {
+    int icoordx = 0;
+    int icoordy = 0;
+    GraphicsContext gc;
 //    public void setNewstage(Stage newstage) throws Exception {
 //         newstage.show("Hello World");
 //    }
@@ -38,7 +43,33 @@ public class Render extends Application {
 
     Grille jeu = new Grille();
 
+    private void draw(Group root) {
+        for (int x = 50; x <= 450; x = x + 50) {
+            for (int y = 130; y <= 530; y = y + 50) {
+                Text test = new Text();
+                test.setFont(new Font(50));
+                test.setX(x);
+                test.setY(y);
+                test.setText(jeu.grilleCase[(x - 50) / 50][(y - 130) / 50].getCaseSudoku() + "");
+                root.getChildren().add(test);
+            }
+        }
+    }
+    private void eraseNumber(Group root){
 
+        for (int Rsx = 40; Rsx <= 440; Rsx = Rsx +50) {
+            for (int  Rsy = 88; Rsy <= 488; Rsy = Rsy +50)
+                gc.strokeRect(Rsx,Rsy,50,50);
+            Rectangle rectanglenumber = new Rectangle((icoordx*50+40)+4, (icoordy*50+90)+2, 44, 40);
+           rectanglenumber.setFill(Color.WHITE);
+            gc.setFill(Color.WHITE);
+            gc.fillRect((icoordx*50+40),(icoordy*50+90),44,44);
+//            gc.setFill(Color.BLACK);
+//            gc.strokeRect((icoordx*50+40),(icoordy*50+90),49,49);
+            root.getChildren().add(rectanglenumber);
+        }
+
+    }
     @Override
     public void start(Stage stage) throws Exception {
         // create a group object
@@ -53,18 +84,7 @@ public class Render extends Application {
         // Color, title of the scene
         scene.setFill(Color.WHITE);
         stage.setTitle("Solveur de Sudoku");
-
-        for (int x = 50; x <= 450; x = x +50) {
-            for (int y = 130; y <= 530; y = y +50) {
-            Text test = new Text();
-            test.setFont(new Font(50));
-            test.setX(x);
-            test.setY(y);
-            test.setText(jeu.grilleCase[(x-50)/50][(y-130)/50].getCaseSudoku()+"");
-            root.getChildren().add(test);
-        }
-
-
+        draw(root);
 
         // Add test group
 //        for (XYChart)
@@ -117,7 +137,7 @@ public class Render extends Application {
 //        stage.setScene(scene);
         Canvas canvas = new Canvas(1000, 600);
         root.getChildren().add(canvas);
-        GraphicsContext gc = canvas.getGraphicsContext2D();
+         gc = canvas.getGraphicsContext2D();
 
         // manipulation of image
 //        gc.setFill( Color.BLUE );
@@ -158,7 +178,11 @@ public class Render extends Application {
                    root.getChildren().add(button);
                    int finalCount = count;
                    button.setOnMouseClicked(e->{
-                       System.out.println(finalCount);
+                       System.out.println("change at i ="+icoordx+" and j = "+icoordy+" "+finalCount);
+                       eraseNumber(root);
+                       jeu.changeValue(icoordx,icoordy,finalCount);
+                       draw(root);
+                       jeu.changeValue(icoordx,icoordy,finalCount);
                    });
 //
 //                   button.setOnAction(new EventHandler<ActionEvent>() {
@@ -221,6 +245,8 @@ public class Render extends Application {
             // draw rectangle
 //        Rectangle2D s1 = new Rectangle2D(10, 10,20,30);
 //          gc.strokeRect(50, 100,450,450);
+//          gc.setFill(Color.BLACK);
+//          gc.fillRect(100,100,100,100);
 //
 //    }
 //            Rectangle2D rectangle11 = new Rectangle2D(50,130,150,150);
@@ -233,8 +259,6 @@ public class Render extends Application {
 //                }
 //            }
             /** add mouse */
-            int icoordx = 0;
-            int icoordy = 0;
             scene.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEventpositon) {
@@ -244,19 +268,13 @@ public class Render extends Application {
 
                     double coordx = mouseEventpositon.getSceneX();
                     double coordy = mouseEventpositon.getSceneY();
-                    int icoordx = (int) (coordx-40)/50;
-                    int icoordy = (int) (coordy-90)/50;
+                    icoordx = (int) (coordx-40)/50;
+                    icoordy = (int) (coordy-90)/50;
                     System.out.println(icoordx +"  "+ icoordy);}
 
                 }
             });
-//            scene.setOnMouseClicked(new EventHandler<MouseEvent>() {
-//                @Override
-//                public void handle(MouseEvent mouseEventnumber) {
-//                    jeu.changeValue(icoordx,icoordy,1);
-//
-//                }
-//            });
+
 
             /** add keyboard */
             scene.setOnKeyPressed(e->{
@@ -515,19 +533,5 @@ public class Render extends Application {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        }}}
+    }
+}
