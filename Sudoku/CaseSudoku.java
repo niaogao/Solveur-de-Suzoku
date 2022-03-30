@@ -2,9 +2,11 @@ package Sudoku;
 
 public class CaseSudoku {
     private int a;
+
     public CaseSudoku (int a) {
         this.a = a;
     }
+
     public int getCaseSudoku () {
         return a;
     }
