@@ -1,5 +1,10 @@
-public class HelloWorld {
-    public static void main(String[] args) {
-        System.out.println("hello world");
-    }
-}
+//public class HelloWorld {
+//    public static void main(String[] args) {
+//        int convert (char c) {
+//            int res;
+//            res = (int) c - 48;
+//        }
+//
+//        System.out.println("hello world");
+//    }
+//}

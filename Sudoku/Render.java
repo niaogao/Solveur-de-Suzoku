@@ -91,8 +91,9 @@ public class Render extends Application {
                 Rectangle rectanglenumber = new Rectangle((icoordx*50+40)+4, (icoordy*50+90)+2, 41, 43);
                 rectanglenumber.setFill(Color.WHITE);
                 root.getChildren().add(rectanglenumber);
-//        }
     }
+
+    // cover all the values with rectangles
     private void eraseAll(Group root) {
         for (icoordx = 0; icoordx <= 8; icoordx++) {
             for (icoordy = 0; icoordy <= 8; icoordy++) {
@@ -100,7 +101,6 @@ public class Render extends Application {
                     eraseNumber(root);
                 }
             }
-
         }
     }
 
