@@ -10,13 +10,15 @@ public class CaseSudoku {
     public int getCaseSudoku () {
         return a;
     }
+
     public void modifyCase (int i) {
-        if (i > 0 && i < 10) {
+        if (i >= 0 && i < 10) {
         a = i;}
         else {
             System.out.println("error");
         }
     }
+
     public void eraseCase () {
         a = 0;
     }

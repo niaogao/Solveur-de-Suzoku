@@ -1,25 +1,13 @@
 package Sudoku;
 
 
-public class Grille {
+public class Grille{
     CaseSudoku[][] grilleCase = new CaseSudoku[9][9]; // create new grille: grilleCase;
-
     public Grille() {
         for (int i = 0; i <= 8; i++) {
             for (int j = 0; j <=8; j++) {
                 grilleCase[i][j] = new CaseSudoku(0); // set the value of each case in grille equals to 0;
             }
-        }
-    }
-
-    // display the values of grilleCase;
-    public void affichage () {
-        for (CaseSudoku []eachline : grilleCase) {
-            String string1 = "";
-            for (CaseSudoku eachcase: eachline){
-                string1 = string1 + eachcase.getCaseSudoku();
-            }
-            System.out.println(string1);
         }
     }
 
@@ -70,9 +58,9 @@ public class Grille {
 //        some tests to check the methods;
         Grille grilleTest = new Grille();
         grilleTest.changeValue(5,4,9);
-        grilleTest.affichage();
+//        grilleTest.affichage();
         Grille grilleTest2 = new Grille();
         grilleTest2.changeValue(8,4,10);
-        grilleTest2.affichage();
+//        grilleTest2.affichage();
     }
 }
