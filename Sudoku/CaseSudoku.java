@@ -6,7 +6,7 @@ public class CaseSudoku {
 
     /**
      * create constructor Casesudoku
-     * @param a
+     * @param a;
      */
     public CaseSudoku (int a) {
         this.a = a;
@@ -14,7 +14,7 @@ public class CaseSudoku {
 
     /**
      * get the value of the CaseSudoku
-     * @return
+     * @return a;
      */
     public int getCaseSudoku () {
         return a;
@@ -22,7 +22,7 @@ public class CaseSudoku {
 
     /**
      *  modidy the value of the CaseSudodu
-     * @param i
+     * @param i;
      */
     public void modifyCase (int i) {
         if (i >= 0 && i < 10) {
@@ -31,8 +31,4 @@ public class CaseSudoku {
             System.out.println("error");
         }
     }
-
-//    public void eraseCase () {
-//        a = 0;
-//    }
 }

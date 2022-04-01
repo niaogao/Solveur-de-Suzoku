@@ -17,9 +17,9 @@ public class Grille{
 
     /**
      *   modify the the value of the case of the grilleCase;
-     * @param x
-     * @param y
-     * @param value
+     * @param x;
+     * @param y;
+     * @param value;
      */
     public void changeValue(int x, int y, int value) {
         if (x < 9 && y < 9 ) {
@@ -32,12 +32,11 @@ public class Grille{
 
     /**
      * check the rule of each line
-     * @param numRowl
-     * @param numcoll
-     * @param vall
-     * @return
+     * @param numRowl;
+     * @param vall;
+     * @return boolean checkrow;
      */
-    public boolean checkrow ( int  numRowl, int numcoll, int vall ) {
+    public boolean checkrow ( int  numRowl, int vall ) {
         for (int i = 0 ;i<=8;i++) {
             if ( grilleCase[numRowl][i].getCaseSudoku()==vall )
                 return false;
@@ -45,14 +44,14 @@ public class Grille{
         return true;
     }
 
+
     /**
-     *  check the rule of each column
-     * @param numRowr
-     * @param numColr
-     * @param valr
-     * @return
+     * check the rule of each column;
+     * @param numColr;
+     * @param valr;
+     * @return boolean checkcolumn;
      */
-    public boolean checkcolumn (int numRowr, int numColr, int valr) {
+    public boolean checkcolumn ( int numColr, int valr) {
         for (int i = 0; i <= 8; i++) {
             if (grilleCase[i][numColr].getCaseSudoku() == valr)
                 return  false;
@@ -61,10 +60,10 @@ public class Grille{
 
     /**
      * check the rule of each square
-     * @param numrowrl
-     * @param numcolrl
-     * @param valrw
-     * @return
+     * @param numrowrl;
+     * @param numcolrl;
+     * @param valrw;
+     * @return boolean checksquare;
      */
     public boolean checksquare (int numrowrl, int numcolrl, int valrw) {
         // identify the position of case, it belongs to which square;

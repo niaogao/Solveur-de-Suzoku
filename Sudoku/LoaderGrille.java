@@ -10,18 +10,17 @@ public class LoaderGrille {
 
     /**
      *  get a random grille files;
-     * @return
+     * @return  nameGrilles;
      */
     static  String getRandomString (){
         int r = (int) (Math.random()*3);
-        String nameGrille =  paths [r];
-        return nameGrille;
+        return paths [r];
     }
 
     /**
      *  load the grille file;
-     * @param path
-     * @return
+     * @param  path;
+     * @return Grille;
      */
     static Grille load(String path) {
         Grille grille = new Grille();

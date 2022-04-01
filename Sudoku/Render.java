@@ -31,19 +31,17 @@ public class Render extends Application {
     /**
      * fix the initial value of the newgameinitial, we can't change after.
      * So we can't change the initial values of the original game;
-     * @param i
-     * @param j
-     * @return
+     * @param i;
+     * @param j;
+     * @return boolean checknewvalue;
      */
     private boolean checknewvalue (int i, int j) {
-        if  (newgameinitial.grilleCase[i][j].getCaseSudoku()!=0) {
-            return false;
-        } return true;
+        return newgameinitial.grilleCase[i][j].getCaseSudoku()==0;
     }
 
     /**
      * calculate the sum of the values of the newgameinitial;
-     * @return
+     * @return sumnewgameiniitial;
      */
     private   int sumnewgameinitial () {
         int suminitial = 0;
@@ -56,7 +54,7 @@ public class Render extends Application {
 
     /**
      * calculate the sum of the values of the newgame;
-     * @return
+     * @return int sumnewgame;
      */
     private   int sumnewgame () {
         int sumnew = 0;
@@ -69,7 +67,7 @@ public class Render extends Application {
 
     /**
      * input the values of newgame in the grille: initially the value is 0 for all the cases;
-     * @param root
+     * @param  root;
      */
     private void drawnewgame(Group root) {
         for (int x = 50; x <= 450; x = x + 50) {
@@ -88,7 +86,7 @@ public class Render extends Application {
 
     /**
      * input the values of newgameinitial in the grille: initially the value is 0 for all the cases;
-     * @param root
+     * @param root;
      */
     private void drawnewgameinitial(Group root) {
         for (int x = 50; x <= 450; x = x + 50) {
@@ -108,7 +106,7 @@ public class Render extends Application {
 
      /**
      * cover the value of a selected case with a white rectangle;
-     * @param root
+     * @param root;
      */
     private void eraseNumber(Group root){
                 Rectangle rectanglenumber = new Rectangle((icoordx*50+40)+4, (icoordy*50+90)+2, 41, 43);
@@ -118,7 +116,7 @@ public class Render extends Application {
 
     /**
      * cover all the cases with white rectangles;
-     * @param root
+     * @param root;
      */
     private void eraseAll(Group root) {
         for (icoordx = 0; icoordx <= 8; icoordx++) {
@@ -209,8 +207,8 @@ public class Render extends Application {
                 button.setOnMouseClicked(e -> {
                     /*check the rule before input the values in newgame grille (checkrow, checkcolumn, chekcolum and
                     if the value is equal to the value in newgameinital); */
-                    if (newgame.checkrow(icoordx, icoordy, finalCount)
-                        && (newgame.checkcolumn(icoordx, icoordy, finalCount))
+                    if (newgame.checkrow(icoordx, finalCount)
+                        && (newgame.checkcolumn(icoordy, finalCount))
                         && (newgame.checksquare(icoordx, icoordy, finalCount))
                         && checknewvalue(icoordx,icoordy)) {
                         eraseNumber(root);
