@@ -4,15 +4,25 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 
 public class LoaderGrille {
-
+    // create a arrayliste which contains the name of the grille files;
     static String[] paths = {"./Sudoku/Grilleinitiale00.csv", "./Sudoku/Grilleinitiale01.csv", "./Sudoku/Grilleinitiale02.csv"};
     static String currentPath = "./Sudoku/Grilleinitiale02.csv";
+
+    /**
+     *  get a random grille files;
+     * @return
+     */
     static  String getRandomString (){
         int r = (int) (Math.random()*3);
         String nameGrille =  paths [r];
         return nameGrille;
     }
 
+    /**
+     *  load the grille file;
+     * @param path
+     * @return
+     */
     static Grille load(String path) {
         Grille grille = new Grille();
         try {

@@ -28,14 +28,23 @@ public class Render extends Application {
     Grille newgameinitial = new Grille(); // create a initial game Grille;
     Grille newgame = new Grille(); // create a new game Grille
 
-// fix the initial value of the newgameinitial, we can't change after;
+    /**
+     * fix the initial value of the newgameinitial, we can't change after.
+     * So we can't change the initial values of the original game;
+     * @param i
+     * @param j
+     * @return
+     */
     private boolean checknewvalue (int i, int j) {
         if  (newgameinitial.grilleCase[i][j].getCaseSudoku()!=0) {
             return false;
         } return true;
     }
 
-// sum the values of the newgameinitial;
+    /**
+     * calculate the sum of the values of the newgameinitial;
+     * @return
+     */
     private   int sumnewgameinitial () {
         int suminitial = 0;
         for (int i = 0; i <9; i++) {
@@ -45,7 +54,10 @@ public class Render extends Application {
         } return suminitial;
     }
 
-//sum the values of the newgame;
+    /**
+     * calculate the sum of the values of the newgame;
+     * @return
+     */
     private   int sumnewgame () {
         int sumnew = 0;
         for (int i = 0; i <9; i++) {
@@ -55,8 +67,11 @@ public class Render extends Application {
         } return sumnew;
     }
 
-// input the values of newgame in the grille: initially the value is 0 for all the cases;
-    private void draw(Group root) {
+    /**
+     * input the values of newgame in the grille: initially the value is 0 for all the cases;
+     * @param root
+     */
+    private void drawnewgame(Group root) {
         for (int x = 50; x <= 450; x = x + 50) {
             for (int y = 130; y <= 530; y = y + 50) {
                 Text casetext = new Text();
@@ -71,8 +86,11 @@ public class Render extends Application {
         }
     }
 
-//  input the values of newgameinitial in the grille: initially the value is 0 for all the cases;
-    private void draw1(Group root) {
+    /**
+     * input the values of newgameinitial in the grille: initially the value is 0 for all the cases;
+     * @param root
+     */
+    private void drawnewgameinitial(Group root) {
         for (int x = 50; x <= 450; x = x + 50) {
             for (int y = 130; y <= 530; y = y + 50) {
                 Text casetext = new Text();
@@ -88,8 +106,8 @@ public class Render extends Application {
     }
 
 
-     /** cover the value of a selected case with a white rectangle;
-     *
+     /**
+     * cover the value of a selected case with a white rectangle;
      * @param root
      */
     private void eraseNumber(Group root){
@@ -99,7 +117,7 @@ public class Render extends Application {
     }
 
     /**
-     * dsfgregf
+     * cover all the cases with white rectangles;
      * @param root
      */
     private void eraseAll(Group root) {
@@ -114,42 +132,42 @@ public class Render extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-  // create a group object
+    // create a group object
         Group root = new Group();
 
-// create a scene by defining the group object, height and width
+    // create a scene by defining the group object, height and width
         int width = 1000;
         int height = 600;
         Scene scene = new Scene(root,width, height);
 
-// set nitial values in the cases of the newgame and newgameinital grille;
+    // load newgame and newgameinital grille;
         LoaderGrille.currentPath = LoaderGrille.getRandomString();
         newgameinitial = LoaderGrille.load(LoaderGrille.currentPath);
         newgame = LoaderGrille.load(LoaderGrille.currentPath);
 
-// Color, title of the scene
+    // Color, title of the scene;
         scene.setFill(Color.WHITE);
         stage.setTitle("Solveur de Sudoku");
-        draw(root);
-        draw1(root);
+        drawnewgame(root);
+        drawnewgameinitial(root);
 
-// Add Scene to stage
+    // Add Scene to stage
         stage.setScene(scene);
 
-// show Scene
+    // show Scene
         stage.show();
 
-//  add Canvas
+    //  add Canvas
         Canvas canvas = new Canvas(1000, 600);
         root.getChildren().add(canvas);
-         gc = canvas.getGraphicsContext2D();
+        gc = canvas.getGraphicsContext2D();
 
-// add 9x9 grille: 81 rectangle and lines
+    // add 9x9 grille: 81 rectangles and lines
         for (int Rsx = 40; Rsx <= 440; Rsx = Rsx +50) { //draw rectangle;
             for (int Rsy = 88; Rsy <= 488; Rsy = Rsy +50)
                 gc.strokeRect(Rsx,Rsy,50,50);
         }
-        for (int Ly = 88; Ly <= 538; Ly = Ly +150) { //draw bold row line
+        for (int Ly = 88; Ly <= 538; Ly = Ly +150) { //draw bold row lines
             Line blackLine = new Line();
             blackLine.setStartX(40);
             blackLine.setStartY(Ly);
@@ -159,7 +177,7 @@ public class Render extends Application {
             blackLine.setStrokeWidth(5);
             root.getChildren().add(blackLine);
         }
-        for (int Lx = 40; Lx <= 490; Lx = Lx +150) { // draw bold column line
+        for (int Lx = 40; Lx <= 490; Lx = Lx +150) { // draw bold column lines
             Line blackLine = new Line();
             blackLine.setStartX(Lx);
             blackLine.setStartY(88);
@@ -170,7 +188,7 @@ public class Render extends Application {
             root.getChildren().add(blackLine);
         }
 
-// add bouton clavier 1 -9;
+    // add bouton clavier 1 -9;
         int count =0;
         for (int buttony = 200; buttony <= 340; buttony = buttony +70) {
             for (int buttonx = 560; buttonx <= 700; buttonx = buttonx +70) {
@@ -197,8 +215,8 @@ public class Render extends Application {
                         && checknewvalue(icoordx,icoordy)) {
                         eraseNumber(root);
                         newgame.changeValue(icoordx, icoordy, finalCount);
-                        draw(root); // color blue
-                        draw1(root); // color black
+                        drawnewgame(root); // color blue
+                        drawnewgameinitial(root); // color black
 
                         // show the position of the changed case and the input value;
                         System.out.println("clic at the position [" + icoordx + "]" + "[" + icoordy + "]" +
@@ -240,8 +258,8 @@ public class Render extends Application {
                                 LoaderGrille.currentPath = LoaderGrille.getRandomString();
                                 newgame = LoaderGrille.load(LoaderGrille.currentPath);
                                 newgameinitial =LoaderGrille.load(LoaderGrille.currentPath);
-                                draw(root);
-                                draw1(root);
+                                drawnewgame(root);
+                                drawnewgameinitial(root);
                             });
                         }
                     } else { System.out.println("position at [" + icoordx + "]" +
@@ -251,7 +269,7 @@ public class Render extends Application {
             }
         }
 
-// add mouse with action;
+    // add mouse with action;
         scene.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEventpositon) {
@@ -262,7 +280,7 @@ public class Render extends Application {
                     icoordx = (int) (coordx-40)/50;
                     icoordy = (int) (coordy-90)/50;
 
-                    // test
+                    // display the selected case by a blue rectangle;
                    if (newgame.grilleCase[icoordx][icoordy].getCaseSudoku() != newgameinitial.grilleCase[icoordx][icoordy].getCaseSudoku()
                    || newgame.grilleCase[icoordx][icoordy].getCaseSudoku() == 0) {
                    Rectangle rectanglenumberblue = new Rectangle((icoordx*50+44), (icoordy*50+90+2), 41, 43);
@@ -270,25 +288,23 @@ public class Render extends Application {
                    rectanglenumberblue.setStroke(Color.WHITE);
                    root.getChildren().add(rectanglenumberblue);}
 
-                   // test
-
                     System.out.println("clic at the position ["+icoordx + "]" + "["+icoordy+"]");}
                 }
             });
 
-// add image niveau and facile;
+    // add image niveau and facile;
         Image niveauimg = new javafx.scene.image.Image( "Sudoku/niveau.png" );
         gc.drawImage( niveauimg, 70, 18,100,45);
         Image niveaufacile = new javafx.scene.image.Image( "Sudoku/facile.png" );
         gc.drawImage( niveaufacile, 175, 20.5,80,40);
 
-// add image autocheck mode on
+    // add image autocheck mode on
         Image autocheckmode = new javafx.scene.image.Image( "Sudoku/autocheck mode.png" );
         gc.drawImage( autocheckmode, 350, 15,225,46);
         Image autocheckmodoff = new javafx.scene.image.Image( "Sudoku/autocheck mode on.png" );
         gc.drawImage( autocheckmodoff, 600, 18,106,41.7);
 
-// add button prise des notes and text notes;
+    // add button prise des notes and text notes;
         Button buttonnotes = new Button();
         buttonnotes.setLayoutX(800);
         buttonnotes.setLayoutY(95);
@@ -310,7 +326,7 @@ public class Render extends Application {
         textnotes.setText("notes");
         root.getChildren().add(textnotes);
 
-//  add button reset and text reset;
+    //  add button reset and text reset;
         Button buttonreset = new Button();
         buttonreset.setLayoutX(820);
         buttonreset.setLayoutY(180);
@@ -325,15 +341,15 @@ public class Render extends Application {
         buttonreset.setGraphic(imageresetView);
         root.getChildren().add(buttonreset);
 
-// reset to the initial game;
+    // reset to the initial game;
         buttonreset.setOnMouseClicked(e -> {
             if (sumnewgameinitial() != sumnewgame()) {
                 eraseAll(root);
                 System.out.println("reload the initial game");
                 newgame = LoaderGrille.load(LoaderGrille.currentPath);
                 newgameinitial =LoaderGrille.load(LoaderGrille.currentPath);
-                draw(root);
-                draw1(root);
+                drawnewgame(root);
+                drawnewgameinitial(root);
             } else System.out.println("it's the initial game");
         });
 
@@ -359,7 +375,7 @@ public class Render extends Application {
         buttoneraser.setGraphic(imagepauseView);
         root.getChildren().add(buttoneraser);
 
-// deleting the value by entering 0;
+    // deleting the value by entering 0;
         buttoneraser.setOnMouseClicked(e -> {
             if (newgame.grilleCase[icoordx][icoordy].getCaseSudoku()
                 != newgameinitial.grilleCase[icoordx][icoordy].getCaseSudoku()){
@@ -375,7 +391,7 @@ public class Render extends Application {
         textpause.setText("eraser");
         root.getChildren().add(textpause);
 
-//  add button exit;
+    //  add button exit;
         Button buttonexit = new Button();
         buttonexit.setLayoutX(820);
         buttonexit.setLayoutY(365);
@@ -402,7 +418,7 @@ public class Render extends Application {
         root.getChildren().add(textexit);
 
 
-// add button finish;
+    // add button finish;
         Button buttonfinish = new Button();
         buttonfinish.setLayoutX(600);
         buttonfinish.setLayoutY(450);
@@ -456,16 +472,16 @@ public class Render extends Application {
         textfinish.setText("finish");
         root.getChildren().add(textfinish);
 
-//  add image clock;
+    //  add image clock;
         Image imageclock = new javafx.scene.image.Image( "Sudoku/chronometer.png" );
         gc.drawImage( imageclock, 570, 85,65,65);
 
-// add copy right image;
+    // add copy right image;
         Image imagecopyright = new javafx.scene.image.Image( "Sudoku/copyright.png" );
         gc.drawImage( imagecopyright, 755, 540,220,51.28);
 
 
-// add regle de jeu button;
+    // add regle de jeu button;
         Button buttonrule = new Button();
         buttonrule.setLayoutX(780);
         buttonrule.setLayoutY(10);
