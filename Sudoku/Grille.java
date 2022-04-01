@@ -3,15 +3,24 @@ package Sudoku;
 
 public class Grille{
     CaseSudoku[][] grilleCase = new CaseSudoku[9][9]; // create new grille: grilleCase;
+
+    /**
+     * set the value of each case in grille equals to 0;
+     */
     public Grille() {
         for (int i = 0; i <= 8; i++) {
             for (int j = 0; j <=8; j++) {
-                grilleCase[i][j] = new CaseSudoku(0); // set the value of each case in grille equals to 0;
+                grilleCase[i][j] = new CaseSudoku(0);
             }
         }
     }
 
-    // modify the the value of the case of the grilleCase;
+    /**
+     *   modify the the value of the case of the grilleCase;
+     * @param x
+     * @param y
+     * @param value
+     */
     public void changeValue(int x, int y, int value) {
         if (x < 9 && y < 9 ) {
         this.grilleCase[x][y].modifyCase(value);
@@ -21,7 +30,13 @@ public class Grille{
         }
     }
 
-    // check the rule of each line
+    /**
+     * check the rule of each line
+     * @param numRowl
+     * @param numcoll
+     * @param vall
+     * @return
+     */
     public boolean checkrow ( int  numRowl, int numcoll, int vall ) {
         for (int i = 0 ;i<=8;i++) {
             if ( grilleCase[numRowl][i].getCaseSudoku()==vall )
@@ -30,7 +45,13 @@ public class Grille{
         return true;
     }
 
-    // check the rule of each column
+    /**
+     *  check the rule of each column
+     * @param numRowr
+     * @param numColr
+     * @param valr
+     * @return
+     */
     public boolean checkcolumn (int numRowr, int numColr, int valr) {
         for (int i = 0; i <= 8; i++) {
             if (grilleCase[i][numColr].getCaseSudoku() == valr)
@@ -38,7 +59,13 @@ public class Grille{
         } return true;
     }
 
-    // check the rule of each square
+    /**
+     * check the rule of each square
+     * @param numrowrl
+     * @param numcolrl
+     * @param valrw
+     * @return
+     */
     public boolean checksquare (int numrowrl, int numcolrl, int valrw) {
         // identify the position of case, it belongs to which square;
         int isquare = (numrowrl-(numrowrl%3))/3;

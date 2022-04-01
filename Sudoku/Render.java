@@ -88,14 +88,20 @@ public class Render extends Application {
     }
 
 
-// cover the value of a selected case with a white rectangle;
+     /** cover the value of a selected case with a white rectangle;
+     *
+     * @param root
+     */
     private void eraseNumber(Group root){
                 Rectangle rectanglenumber = new Rectangle((icoordx*50+40)+4, (icoordy*50+90)+2, 41, 43);
                 rectanglenumber.setFill(Color.WHITE);
                 root.getChildren().add(rectanglenumber);
     }
 
-// cover all the values with rectangles
+    /**
+     * dsfgregf
+     * @param root
+     */
     private void eraseAll(Group root) {
         for (icoordx = 0; icoordx <= 8; icoordx++) {
             for (icoordy = 0; icoordy <= 8; icoordy++) {
@@ -255,6 +261,17 @@ public class Render extends Application {
                     double coordy = mouseEventpositon.getSceneY();
                     icoordx = (int) (coordx-40)/50;
                     icoordy = (int) (coordy-90)/50;
+
+                    // test
+                   if (newgame.grilleCase[icoordx][icoordy].getCaseSudoku() != newgameinitial.grilleCase[icoordx][icoordy].getCaseSudoku()
+                   || newgame.grilleCase[icoordx][icoordy].getCaseSudoku() == 0) {
+                   Rectangle rectanglenumberblue = new Rectangle((icoordx*50+44), (icoordy*50+90+2), 41, 43);
+                   rectanglenumberblue.setFill(Color.BLUE);
+                   rectanglenumberblue.setStroke(Color.WHITE);
+                   root.getChildren().add(rectanglenumberblue);}
+
+                   // test
+
                     System.out.println("clic at the position ["+icoordx + "]" + "["+icoordy+"]");}
                 }
             });
