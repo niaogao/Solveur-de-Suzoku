@@ -370,9 +370,9 @@ public class Render extends Application {
         buttoneraser.setStyle("-fx-border-color: white;");
         buttoneraser.setStyle("-fx-background-color: white");
 
-        Image imagepause = new Image ("Sudoku/eraser.png",60,60,true,true);
-        ImageView imagepauseView = new ImageView(imagepause);
-        buttoneraser.setGraphic(imagepauseView);
+        Image imageeraser = new Image ("Sudoku/eraser.png",60,60,true,true);
+        ImageView imageeraserView = new ImageView(imageeraser);
+        buttoneraser.setGraphic(imageeraserView);
         root.getChildren().add(buttoneraser);
 
     // deleting the value by entering 0;
@@ -384,12 +384,12 @@ public class Render extends Application {
             }
         });
 
-        Text textpause = new Text();
-        textpause.setFont(new Font(30));
-        textpause.setX(880);
-        textpause.setY(307);
-        textpause.setText("eraser");
-        root.getChildren().add(textpause);
+        Text texteraser = new Text();
+        texteraser.setFont(new Font(30));
+        texteraser.setX(880);
+        texteraser.setY(307);
+        texteraser.setText("eraser");
+        root.getChildren().add(texteraser);
 
     //  add button exit;
         Button buttonexit = new Button();
@@ -439,11 +439,11 @@ public class Render extends Application {
                 final Stage dialog = new Stage();
                 dialog.initModality(Modality.APPLICATION_MODAL);
                 VBox dialogVbox = new VBox();
-                Text textnotfish = new Text();
-                textnotfish.setFont(new Font(35));
-                textnotfish.setFill(Color.BLUE);
-                textnotfish.setText("Bravo! You are the best!!!");
-                dialogVbox.getChildren().add(textnotfish);
+                Text textfinished = new Text();
+                textfinished.setFont(new Font(35));
+                textfinished.setFill(Color.BLUE);
+                textfinished.setText("Bravo! You are the best!!!");
+                dialogVbox.getChildren().add(textfinished);
                 Scene dialogScene = new Scene(dialogVbox, 400, 300);
                 dialog.setScene(dialogScene);
                 dialog.show();
@@ -452,11 +452,11 @@ public class Render extends Application {
                 final Stage dialog = new Stage();
                 dialog.initModality(Modality.APPLICATION_MODAL);
                 VBox dialogVbox = new VBox();
-                Text textnotfish = new Text();
-                textnotfish.setFont(new Font(35));
-                textnotfish.setFill(Color.RED);
-                textnotfish.setText("please finish the game!");
-                dialogVbox.getChildren().add(textnotfish);
+                Text textnotfinish = new Text();
+                textnotfinish.setFont(new Font(35));
+                textnotfinish.setFill(Color.RED);
+                textnotfinish.setText("please finish the game!");
+                dialogVbox.getChildren().add(textnotfinish);
                 Scene dialogScene = new Scene(dialogVbox, 400, 300);
                 dialog.setScene(dialogScene);
                 dialog.show();
@@ -476,7 +476,12 @@ public class Render extends Application {
         Image imageclock = new javafx.scene.image.Image( "Sudoku/chronometer.png" );
         gc.drawImage( imageclock, 570, 85,65,65);
 
-    // add copy right image;
+        Image imageclock0000 = new javafx.scene.image.Image( "Sudoku/clock 0000.png" );
+        gc.drawImage( imageclock0000, 640, 102,82.2,30);
+
+
+
+        // add copy right image;
         Image imagecopyright = new javafx.scene.image.Image( "Sudoku/copyright.png" );
         gc.drawImage( imagecopyright, 755, 540,220,51.28);
 
