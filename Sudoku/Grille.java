@@ -31,7 +31,7 @@ public class Grille{
     }
 
     /**
-     * check the rule of each line
+     * check the rule of each line;
      * @param numRowl;
      * @param vall;
      * @return boolean checkrow;
@@ -59,7 +59,7 @@ public class Grille{
     }
 
     /**
-     * check the rule of each square
+     * check the rule of each square;
      * @param numrowrl;
      * @param numcolrl;
      * @param valrw;

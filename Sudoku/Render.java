@@ -29,7 +29,7 @@ public class Render extends Application {
     Grille newgame = new Grille(); // create a new game Grille
 
     /**
-     * fix the initial value of the newgameinitial, we can't change after.
+     * fix the initial value of the newgameinitial, we can't change after;
      * So we can't change the initial values of the original game;
      * @param i;
      * @param j;
@@ -130,10 +130,10 @@ public class Render extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-    // create a group object
+    // create a group object;
         Group root = new Group();
 
-    // create a scene by defining the group object, height and width
+    // create a scene by defining the group object, height and width;
         int width = 1000;
         int height = 600;
         Scene scene = new Scene(root,width, height);
@@ -149,23 +149,23 @@ public class Render extends Application {
         drawnewgame(root);
         drawnewgameinitial(root);
 
-    // Add Scene to stage
+    // Add Scene to stage;
         stage.setScene(scene);
 
-    // show Scene
+    // show Scene;
         stage.show();
 
-    //  add Canvas
+    //  add Canvas;
         Canvas canvas = new Canvas(1000, 600);
         root.getChildren().add(canvas);
         gc = canvas.getGraphicsContext2D();
 
-    // add 9x9 grille: 81 rectangles and lines
+    // add 9x9 grille: 81 rectangles and lines;
         for (int Rsx = 40; Rsx <= 440; Rsx = Rsx +50) { //draw rectangle;
             for (int Rsy = 88; Rsy <= 488; Rsy = Rsy +50)
                 gc.strokeRect(Rsx,Rsy,50,50);
         }
-        for (int Ly = 88; Ly <= 538; Ly = Ly +150) { //draw bold row lines
+        for (int Ly = 88; Ly <= 538; Ly = Ly +150) { //draw bold row lines;
             Line blackLine = new Line();
             blackLine.setStartX(40);
             blackLine.setStartY(Ly);
@@ -175,7 +175,7 @@ public class Render extends Application {
             blackLine.setStrokeWidth(5);
             root.getChildren().add(blackLine);
         }
-        for (int Lx = 40; Lx <= 490; Lx = Lx +150) { // draw bold column lines
+        for (int Lx = 40; Lx <= 490; Lx = Lx +150) { // draw bold column lines;
             Line blackLine = new Line();
             blackLine.setStartX(Lx);
             blackLine.setStartY(88);
@@ -213,8 +213,8 @@ public class Render extends Application {
                         && checknewvalue(icoordx,icoordy)) {
                         eraseNumber(root);
                         newgame.changeValue(icoordx, icoordy, finalCount);
-                        drawnewgame(root); // color blue
-                        drawnewgameinitial(root); // color black
+                        drawnewgame(root); // color blue;
+                        drawnewgameinitial(root); // color black;
 
                         // show the position of the changed case and the input value;
                         System.out.println("clic at the position [" + icoordx + "]" + "[" + icoordy + "]" +
@@ -249,7 +249,7 @@ public class Render extends Application {
                             dialogautofinish.show();
                             System.out.println("Bravo! You won.");
 
-                            // reload a new game
+                            // reload a new game;
                             buttonnextgame.setOnMouseClicked(e1 -> {
                                 eraseAll(root);
                                 System.out.println("reload the initial game");
@@ -296,7 +296,7 @@ public class Render extends Application {
         Image niveaufacile = new javafx.scene.image.Image( "Sudoku/facile.png" );
         gc.drawImage( niveaufacile, 175, 20.5,80,40);
 
-    // add image autocheck mode on
+    // add image autocheck mode on;
         Image autocheckmode = new javafx.scene.image.Image( "Sudoku/autocheck mode.png" );
         gc.drawImage( autocheckmode, 350, 15,225,46);
         Image autocheckmodoff = new javafx.scene.image.Image( "Sudoku/autocheck mode on.png" );
@@ -415,7 +415,6 @@ public class Render extends Application {
         textexit.setText("exit");
         root.getChildren().add(textexit);
 
-
     // add button finish;
         Button buttonfinish = new Button();
         buttonfinish.setLayoutX(600);
@@ -479,7 +478,7 @@ public class Render extends Application {
 
 
 
-        // add copy right image;
+    // add copy right image;
         Image imagecopyright = new javafx.scene.image.Image( "Sudoku/copyright.png" );
         gc.drawImage( imagecopyright, 755, 540,220,51.28);
 

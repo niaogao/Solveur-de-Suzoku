@@ -5,7 +5,7 @@ public class CaseSudoku {
     private int a;
 
     /**
-     * create constructor Casesudoku
+     * create constructor Casesudoku;
      * @param a;
      */
     public CaseSudoku (int a) {
@@ -13,7 +13,7 @@ public class CaseSudoku {
     }
 
     /**
-     * get the value of the CaseSudoku
+     * get the value of the CaseSudoku;
      * @return a;
      */
     public int getCaseSudoku () {
@@ -21,7 +21,7 @@ public class CaseSudoku {
     }
 
     /**
-     *  modidy the value of the CaseSudodu
+     *  modidy the value of the CaseSudodu;
      * @param i;
      */
     public void modifyCase (int i) {
