@@ -189,6 +189,60 @@ public class Render extends Application {
                         newgame.changeValue(icoordx, icoordy, finalCount);
                         draw(root);
                         draw1(root);
+
+                        if ( sumnewgame() == 405) {
+                            final Stage dialogfinish = new Stage();
+                            dialogfinish.initModality(Modality.APPLICATION_MODAL);
+                            VBox dialogVboxfinish = new VBox();
+                            Text textnotfish = new Text();
+                            textnotfish.setFont(new Font(35));
+                            textnotfish.setFill(Color.BLUE);
+                            textnotfish.setText("Bravo!! New game ??");
+                            dialogVboxfinish.getChildren().add(textnotfish);
+
+                            Button buttonnextgame = new Button();
+                            buttonnextgame.setLayoutX(200);
+                            buttonnextgame.setLayoutY(200);
+                            buttonnextgame.setMinSize(50,50);
+                            buttonnextgame.setMaxSize(100,100);
+                            buttonnextgame.setPrefSize(50,50);
+                            buttonnextgame.setStyle("-fx-border-color: white;");
+                            buttonnextgame.setStyle("-fx-background-color: white");
+
+                            Image imagefinish = new Image ("Sudoku/finish.png",50,50,true,true);
+                            ImageView imagefinishView = new ImageView(imagefinish);
+                            buttonnextgame.setGraphic(imagefinishView);
+                            dialogVboxfinish.getChildren().add(buttonnextgame);
+
+                            Scene dialogScene = new Scene(dialogVboxfinish, 400, 300);
+                            dialogfinish.setScene(dialogScene);
+                            dialogfinish.show();
+                            System.out.println("Bravo! You won.");
+
+                            buttonnextgame.setOnMouseClicked(e1 -> {
+                                eraseAll(root);
+                                System.out.println("reload the initial game");
+                                newgame = LoaderGrille.load();
+                                newgameinitial =LoaderGrille.load();
+                                draw(root);
+                                draw1(root);
+                            });
+                        }
+//                        else {
+//                            final Stage dialog = new Stage();
+//                            dialog.initModality(Modality.APPLICATION_MODAL);
+////                dialog.initOwner(primayStage);
+//                            VBox dialogVbox = new VBox();
+//                            Text textnotfish = new Text();
+//                            textnotfish.setFont(new Font(35));
+//                            textnotfish.setFill(Color.RED);
+//                            textnotfish.setText("please finish the game!");
+//                            dialogVbox.getChildren().add(textnotfish);
+//                            Scene dialogScene = new Scene(dialogVbox, 400, 300);
+//                            dialog.setScene(dialogScene);
+//                            dialog.show();
+//                            System.out.println("it's not finished yet, continue the game");
+//                        }
                         // show the position of the changed case and the input value;
                         System.out.println("clic at the position [" + icoordx + "]" + "[" + icoordy + "]" + ", the input value is:  " + finalCount);
                     } else {
@@ -300,8 +354,11 @@ public class Render extends Application {
         root.getChildren().add(buttoneraser);
 
         buttoneraser.setOnMouseClicked(e -> {
+            if (newgame.grilleCase[icoordx][icoordy].getCaseSudoku()
+                != newgameinitial.grilleCase[icoordx][icoordy].getCaseSudoku()){
             eraseNumber(root);
             newgame.changeValue(icoordx, icoordy, 0);
+            }
         });
 
         Text textpause = new Text();

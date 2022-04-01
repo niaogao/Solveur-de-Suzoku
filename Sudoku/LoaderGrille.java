@@ -4,6 +4,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 
 public class LoaderGrille {
+//    static  getGrille () {
+//        return Grille;
+//    }
     static Grille load() {
         Grille grille = new Grille();
         try {
@@ -22,4 +25,5 @@ public class LoaderGrille {
         }
         return grille;
     }
+
 }
