@@ -24,18 +24,18 @@ import javafx.stage.Stage;
 public class Render extends Application {
     int icoordx = 0; // define the coordinate x which will be converted between 0 and 8;
     int icoordy = 0; // define the coordinate x which will be converted between 0 and 8;
-    GraphicsContext gc; // add Graphics Context in canvas
-    Grille newgameinitial = new Grille();
+    GraphicsContext gc; // add Graphics Context in canvas;
+    Grille newgameinitial = new Grille(); // create a initial game Grille;
     Grille newgame = new Grille(); // create a new game Grille
 
-    // fix the initial value of the newgameinitial, we can't change after;
+// fix the initial value of the newgameinitial, we can't change after;
     private boolean checknewvalue (int i, int j) {
         if  (newgameinitial.grilleCase[i][j].getCaseSudoku()!=0) {
             return false;
         } return true;
     }
 
-    // sum newgameinitial;
+// sum the values of the newgameinitial;
     private   int sumnewgameinitial () {
         int suminitial = 0;
         for (int i = 0; i <9; i++) {
@@ -44,6 +44,8 @@ public class Render extends Application {
             }
         } return suminitial;
     }
+
+//sum the values of the newgame;
     private   int sumnewgame () {
         int sumnew = 0;
         for (int i = 0; i <9; i++) {
@@ -53,7 +55,7 @@ public class Render extends Application {
         } return sumnew;
     }
 
-    // get value of the grille newgame: initially the value is 0 for all the cases;
+// input the values of newgame in the grille: initially the value is 0 for all the cases;
     private void draw(Group root) {
         for (int x = 50; x <= 450; x = x + 50) {
             for (int y = 130; y <= 530; y = y + 50) {
@@ -69,7 +71,7 @@ public class Render extends Application {
         }
     }
 
-    // get value of the grille newgameinitial: initially the value is 0 for all the cases;
+//  input the values of newgameinitial in the grille: initially the value is 0 for all the cases;
     private void draw1(Group root) {
         for (int x = 50; x <= 450; x = x + 50) {
             for (int y = 130; y <= 530; y = y + 50) {
@@ -86,14 +88,14 @@ public class Render extends Application {
     }
 
 
-    // cover the value of a selected case with a white rectangle;
+// cover the value of a selected case with a white rectangle;
     private void eraseNumber(Group root){
                 Rectangle rectanglenumber = new Rectangle((icoordx*50+40)+4, (icoordy*50+90)+2, 41, 43);
                 rectanglenumber.setFill(Color.WHITE);
                 root.getChildren().add(rectanglenumber);
     }
 
-    // cover all the values with rectangles
+// cover all the values with rectangles
     private void eraseAll(Group root) {
         for (icoordx = 0; icoordx <= 8; icoordx++) {
             for (icoordy = 0; icoordy <= 8; icoordy++) {
@@ -106,36 +108,37 @@ public class Render extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        // create a group object
+  // create a group object
         Group root = new Group();
 
-        // create a scene by defining the group object, height and width
+// create a scene by defining the group object, height and width
         int width = 1000;
         int height = 600;
         Scene scene = new Scene(root,width, height);
 
-        // set nitial values in the cases of the newgame and newgameinital grille;
-        newgameinitial = LoaderGrille.load();
-        newgame = LoaderGrille.load();
+// set nitial values in the cases of the newgame and newgameinital grille;
+        LoaderGrille.currentPath = LoaderGrille.getRandomString();
+        newgameinitial = LoaderGrille.load(LoaderGrille.currentPath);
+        newgame = LoaderGrille.load(LoaderGrille.currentPath);
 
-        // Color, title of the scene
+// Color, title of the scene
         scene.setFill(Color.WHITE);
         stage.setTitle("Solveur de Sudoku");
         draw(root);
         draw1(root);
 
-        // Add Scene to stage
+// Add Scene to stage
         stage.setScene(scene);
 
-        // show Scene
+// show Scene
         stage.show();
 
-        //  add Canvas
+//  add Canvas
         Canvas canvas = new Canvas(1000, 600);
         root.getChildren().add(canvas);
          gc = canvas.getGraphicsContext2D();
 
-         // add 9x9 grille;
+// add 9x9 grille: 81 rectangle and lines
         for (int Rsx = 40; Rsx <= 440; Rsx = Rsx +50) { //draw rectangle;
             for (int Rsy = 88; Rsy <= 488; Rsy = Rsy +50)
                 gc.strokeRect(Rsx,Rsy,50,50);
@@ -161,12 +164,13 @@ public class Render extends Application {
             root.getChildren().add(blackLine);
         }
 
-        // add bouton clavier 1 -9;
+// add bouton clavier 1 -9;
         int count =0;
         for (int buttony = 200; buttony <= 340; buttony = buttony +70) {
             for (int buttonx = 560; buttonx <= 700; buttonx = buttonx +70) {
                 count = count + 1;
                 Button button = new Button(count + "");
+
                 // button.setText("count");
                 Font font = Font.font("count", FontWeight.BLACK, 36);
                 button.setFont(font);
@@ -176,83 +180,72 @@ public class Render extends Application {
                 button.setMaxSize(100, 100);
                 button.setPrefSize(70, 70);
                 button.setStyle("-fx-border-color: black;");
-                //      button.setStyle("-fx-background-color: white");
                 root.getChildren().add(button);
                 int finalCount = count;
                 button.setOnMouseClicked(e -> {
-                    // check the rule checkrow, checkcolumn and chekcolum;
+                    /*check the rule before input the values in newgame grille (checkrow, checkcolumn, chekcolum and
+                    if the value is equal to the value in newgameinital); */
                     if (newgame.checkrow(icoordx, icoordy, finalCount)
-                            && (newgame.checkcolumn(icoordx, icoordy, finalCount))
-                            && (newgame.checksquare(icoordx, icoordy, finalCount))
-                            && checknewvalue(icoordx,icoordy)) {
+                        && (newgame.checkcolumn(icoordx, icoordy, finalCount))
+                        && (newgame.checksquare(icoordx, icoordy, finalCount))
+                        && checknewvalue(icoordx,icoordy)) {
                         eraseNumber(root);
                         newgame.changeValue(icoordx, icoordy, finalCount);
-                        draw(root);
-                        draw1(root);
+                        draw(root); // color blue
+                        draw1(root); // color black
 
-                        if ( sumnewgame() == 405) {
-                            final Stage dialogfinish = new Stage();
-                            dialogfinish.initModality(Modality.APPLICATION_MODAL);
-                            VBox dialogVboxfinish = new VBox();
-                            Text textnotfish = new Text();
-                            textnotfish.setFont(new Font(35));
-                            textnotfish.setFill(Color.BLUE);
-                            textnotfish.setText("Bravo!! New game ??");
-                            dialogVboxfinish.getChildren().add(textnotfish);
+                        // show the position of the changed case and the input value;
+                        System.out.println("clic at the position [" + icoordx + "]" + "[" + icoordy + "]" +
+                                ", the input value is:  " + finalCount);
+
+                        if ( sumnewgame() == 405) {  // check the state of the game
+                            final Stage dialogautofinish = new Stage();
+                            dialogautofinish.initModality(Modality.APPLICATION_MODAL);
+                            VBox dialogVboxautofinish = new VBox();
+                            Text textautofinish = new Text();
+                            textautofinish.setFont(new Font(35));
+                            textautofinish.setFill(Color.BLUE);
+                            textautofinish.setText("Bravo!! New game ??");
+                            dialogVboxautofinish.getChildren().add(textautofinish);
 
                             Button buttonnextgame = new Button();
-                            buttonnextgame.setLayoutX(200);
-                            buttonnextgame.setLayoutY(200);
-                            buttonnextgame.setMinSize(50,50);
-                            buttonnextgame.setMaxSize(100,100);
-                            buttonnextgame.setPrefSize(50,50);
+                            buttonnextgame.setLayoutX(300);
+                            buttonnextgame.setLayoutY(300);
+                            buttonnextgame.setMinSize(168,50);
+                            buttonnextgame.setMaxSize(200,100);
+                            buttonnextgame.setPrefSize(170,50);
                             buttonnextgame.setStyle("-fx-border-color: white;");
                             buttonnextgame.setStyle("-fx-background-color: white");
 
-                            Image imagefinish = new Image ("Sudoku/finish.png",50,50,true,true);
+                            Image imagefinish = new Image ("Sudoku/new game.png",168,50,true,true);
                             ImageView imagefinishView = new ImageView(imagefinish);
                             buttonnextgame.setGraphic(imagefinishView);
-                            dialogVboxfinish.getChildren().add(buttonnextgame);
+                            dialogVboxautofinish.getChildren().add(buttonnextgame);
 
-                            Scene dialogScene = new Scene(dialogVboxfinish, 400, 300);
-                            dialogfinish.setScene(dialogScene);
-                            dialogfinish.show();
+                            Scene dialogScene = new Scene(dialogVboxautofinish, 400, 300);
+                            dialogautofinish.setScene(dialogScene);
+                            dialogautofinish.show();
                             System.out.println("Bravo! You won.");
 
+                            // reload a new game
                             buttonnextgame.setOnMouseClicked(e1 -> {
                                 eraseAll(root);
                                 System.out.println("reload the initial game");
-                                newgame = LoaderGrille.load();
-                                newgameinitial =LoaderGrille.load();
+                                LoaderGrille.currentPath = LoaderGrille.getRandomString();
+                                newgame = LoaderGrille.load(LoaderGrille.currentPath);
+                                newgameinitial =LoaderGrille.load(LoaderGrille.currentPath);
                                 draw(root);
                                 draw1(root);
                             });
                         }
-//                        else {
-//                            final Stage dialog = new Stage();
-//                            dialog.initModality(Modality.APPLICATION_MODAL);
-////                dialog.initOwner(primayStage);
-//                            VBox dialogVbox = new VBox();
-//                            Text textnotfish = new Text();
-//                            textnotfish.setFont(new Font(35));
-//                            textnotfish.setFill(Color.RED);
-//                            textnotfish.setText("please finish the game!");
-//                            dialogVbox.getChildren().add(textnotfish);
-//                            Scene dialogScene = new Scene(dialogVbox, 400, 300);
-//                            dialog.setScene(dialogScene);
-//                            dialog.show();
-//                            System.out.println("it's not finished yet, continue the game");
-//                        }
-                        // show the position of the changed case and the input value;
-                        System.out.println("clic at the position [" + icoordx + "]" + "[" + icoordy + "]" + ", the input value is:  " + finalCount);
-                    } else {
-                        System.out.println("position at [" + icoordx + "]" + "[" + icoordy + "]" + ", can't change value,please check the rule");
+                    } else { System.out.println("position at [" + icoordx + "]" +
+                            "[" + icoordy + "]" + ", can't change value,please check the rule");
                     }
                 });
             }
         }
 
-        // add mouse with action;
+// add mouse with action;
         scene.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEventpositon) {
@@ -266,23 +259,19 @@ public class Render extends Application {
                 }
             });
 
-        // add keyboard;
-        scene.setOnKeyPressed(e->{
-           System.out.println(e.getCode());});
-
-        // add image niveau and facile;
+// add image niveau and facile;
         Image niveauimg = new javafx.scene.image.Image( "Sudoku/niveau.png" );
         gc.drawImage( niveauimg, 70, 18,100,45);
         Image niveaufacile = new javafx.scene.image.Image( "Sudoku/facile.png" );
         gc.drawImage( niveaufacile, 175, 20.5,80,40);
 
-        // add image autocheck mode
+// add image autocheck mode on
         Image autocheckmode = new javafx.scene.image.Image( "Sudoku/autocheck mode.png" );
         gc.drawImage( autocheckmode, 350, 15,225,46);
         Image autocheckmodoff = new javafx.scene.image.Image( "Sudoku/autocheck mode on.png" );
         gc.drawImage( autocheckmodoff, 600, 18,106,41.7);
 
-        // add button prise des notes and text notes;
+// add button prise des notes and text notes;
         Button buttonnotes = new Button();
         buttonnotes.setLayoutX(800);
         buttonnotes.setLayoutY(95);
@@ -304,7 +293,7 @@ public class Render extends Application {
         textnotes.setText("notes");
         root.getChildren().add(textnotes);
 
-        //  add button reset and text reset;
+//  add button reset and text reset;
         Button buttonreset = new Button();
         buttonreset.setLayoutX(820);
         buttonreset.setLayoutY(180);
@@ -319,13 +308,13 @@ public class Render extends Application {
         buttonreset.setGraphic(imageresetView);
         root.getChildren().add(buttonreset);
 
+// reset to the initial game;
         buttonreset.setOnMouseClicked(e -> {
-
             if (sumnewgameinitial() != sumnewgame()) {
                 eraseAll(root);
                 System.out.println("reload the initial game");
-                newgame = LoaderGrille.load();
-                newgameinitial =LoaderGrille.load();
+                newgame = LoaderGrille.load(LoaderGrille.currentPath);
+                newgameinitial =LoaderGrille.load(LoaderGrille.currentPath);
                 draw(root);
                 draw1(root);
             } else System.out.println("it's the initial game");
@@ -353,6 +342,7 @@ public class Render extends Application {
         buttoneraser.setGraphic(imagepauseView);
         root.getChildren().add(buttoneraser);
 
+// deleting the value by entering 0;
         buttoneraser.setOnMouseClicked(e -> {
             if (newgame.grilleCase[icoordx][icoordy].getCaseSudoku()
                 != newgameinitial.grilleCase[icoordx][icoordy].getCaseSudoku()){
@@ -368,8 +358,7 @@ public class Render extends Application {
         textpause.setText("eraser");
         root.getChildren().add(textpause);
 
-
-        //  add button exit;
+//  add button exit;
         Button buttonexit = new Button();
         buttonexit.setLayoutX(820);
         buttonexit.setLayoutY(365);
@@ -396,7 +385,7 @@ public class Render extends Application {
         root.getChildren().add(textexit);
 
 
-        // add button finish;
+// add button finish;
         Button buttonfinish = new Button();
         buttonfinish.setLayoutX(600);
         buttonfinish.setLayoutY(450);
@@ -429,7 +418,6 @@ public class Render extends Application {
             } else {
                 final Stage dialog = new Stage();
                 dialog.initModality(Modality.APPLICATION_MODAL);
-//                dialog.initOwner(primayStage);
                 VBox dialogVbox = new VBox();
                 Text textnotfish = new Text();
                 textnotfish.setFont(new Font(35));
@@ -451,17 +439,16 @@ public class Render extends Application {
         textfinish.setText("finish");
         root.getChildren().add(textfinish);
 
-        //  add image clock;
+//  add image clock;
         Image imageclock = new javafx.scene.image.Image( "Sudoku/chronometer.png" );
         gc.drawImage( imageclock, 570, 85,65,65);
-//        Timer timerclock = new Timer();
 
-        // add copy right image;
+// add copy right image;
         Image imagecopyright = new javafx.scene.image.Image( "Sudoku/copyright.png" );
         gc.drawImage( imagecopyright, 755, 540,220,51.28);
 
 
-        // add regle de jeu button;
+// add regle de jeu button;
         Button buttonrule = new Button();
         buttonrule.setLayoutX(780);
         buttonrule.setLayoutY(10);
